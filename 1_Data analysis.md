@@ -27,7 +27,7 @@ After source and identity checks, 145 people have a complete evidence profile an
 
 ## What is usable
 
-1. **KPI attainment** is the clearest result measure: actual performance against a stated target.
+1. **KPI result** is the clearest outcome measure: actual performance against a stated target.
 2. **Delivery effort** is usable activity context after excluding administration, bets and reporting tasks.
 3. **Reviewed PR files changed** is usable Engineering activity context. Only PRs with at least one approval count.
 4. **5/15 updates** provide context but receive zero weight.
@@ -41,10 +41,10 @@ After source and identity checks, 145 people have a complete evidence profile an
 
 ## Baseline finding
 
-Manager ratings have a correlation of **0.28** with KPI attainment and are not monotonic:
+Manager ratings have a correlation of **0.28** with KPI results and are not monotonic:
 
-- median KPI attainment is 96% at rating 3 but 94% at rating 4;
-- 10 people at or below 75% KPI attainment have rating 4–5;
+- median KPI result is 96% at rating 3 but 94% at rating 4;
+- 10 people with a KPI result at or below 75% have rating 4–5;
 - 7 people at or above 105% have rating 1–2.
 
 This does not prove KPI is the complete definition of performance. It establishes a measurable internal inconsistency that the proposed model must improve.

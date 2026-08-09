@@ -48,9 +48,9 @@ Missing required evidence is never converted to zero performance. It produces no
 
 There is no ground-truth performance label in the dataset, so the model cannot be tested for predictive accuracy. It is tested against four observable consistency checks:
 
-1. **Target ordering:** higher ratings should correspond to higher KPI attainment and fewer people below the company target.
+1. **Target ordering:** higher ratings should correspond to higher KPI results and fewer people below the company target.
 2. **Dominance contradictions:** within the same peer group, a person should not receive a rating two or more points higher while being worse on every available signal.
-3. **Obvious contradictions:** ratings 4–5 should not be assigned when KPI attainment is below 75% without strong counter-evidence.
+3. **Obvious contradictions:** ratings 4–5 should not be assigned when the KPI result is below 75% without strong counter-evidence.
 4. **Stability:** splitting activity into odd and even weeks should not move most people by more than one rating point.
 
 These checks test whether the decision can withstand a challenge. They do not claim to measure a person's true value.
@@ -68,7 +68,7 @@ All results use the 145 people with complete evidence.
 | 5 | 102% | 47% | 116% | 5% |
 
 - Dominance contradictions fall from **27 under manager ratings to 0 under the model**.
-- Rating 4–5 with KPI attainment below 75% falls from **8 people to 0**.
+- Rating 4–5 with a KPI result below 75% falls from **8 people to 0**.
 - In the odd/even-week split, **84%** of people remain within one rating point.
 
 The new method is therefore more internally consistent and easier to defend. It is not proven objectively accurate: KPI is an input to the model, activity covers a shorter period than KPI, and peer groups may still combine different roles.
