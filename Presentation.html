@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Groupon Performance Evidence Review</title>
+  <style>
+    :root{
+      --ink:#20202a;--muted:#6c6875;--line:#d8d5df;--paper:#fff;--canvas:#ececf1;
+      --navy:#245681;--blue:#e8f0fa;--purple:#30113d;--violet:#703bb2;--lime:#b9f65a;
+      --green:#2f7952;--green-soft:#e5f4eb;--red:#c64d5c;--red-soft:#f9e7e9;
+      --amber:#bf7e18;--amber-soft:#fff2d7;--grey-soft:#f5f4f7;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--canvas);font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
+    button,a{font:inherit}
+    .viewport{width:100%;height:100%;display:grid;place-items:center}
+    .stage{position:relative;width:1600px;height:900px;transform-origin:center center;background:var(--paper);box-shadow:0 18px 60px rgba(35,25,48,.18);overflow:hidden}
+    .slide{position:absolute;inset:0;padding:68px 86px 64px;background:var(--paper);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s ease}
+    .slide.active{opacity:1;visibility:visible;pointer-events:auto}
+    .slide-grid{background-image:linear-gradient(to right,rgba(36,86,129,.05) 1px,transparent 1px),linear-gradient(to bottom,rgba(36,86,129,.05) 1px,transparent 1px);background-size:96px 64px}
+    .topline{position:absolute;left:0;right:0;top:0;height:12px;background:var(--navy)}
+    .topline::after{content:"";display:block;width:18%;height:12px;background:var(--lime)}
+    .meta{position:absolute;top:28px;right:52px;font:700 14px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+    .meta b{color:var(--navy)}
+    h1,h2,h3,p{margin:0}
+    h1{font-size:62px;line-height:1.02;letter-spacing:-.035em}
+    h2{max-width:1280px;font-size:42px;line-height:1.08;letter-spacing:-.025em;margin-bottom:28px}
+    h3{font-size:23px;line-height:1.2}
+    .sub{font-size:24px;line-height:1.38;color:var(--muted);max-width:1100px}
+    .eyebrow{font:700 15px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.13em;text-transform:uppercase;color:var(--navy);margin-bottom:14px}
+    .rule{height:2px;background:var(--line);margin:24px 0}
+    .footnote{position:absolute;left:86px;bottom:24px;max-width:590px;font-size:14px;line-height:1.25;color:var(--muted)}
+    .page{position:absolute;right:52px;bottom:26px;font:700 14px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:54px}
+    .three{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+    .label{font:700 14px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+    .big{font-size:60px;line-height:1;font-weight:800;letter-spacing:-.04em}
+    .accent{color:var(--navy)}.good{color:var(--green)}.bad{color:var(--red)}.warn{color:var(--amber)}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    table{border-collapse:collapse;width:100%;font-size:18px}
+    th{text-align:left;font:700 14px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--grey-soft)}
+    th,td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:middle}
+    td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;font-size:14px;font-weight:700;background:var(--blue);color:var(--navy)}
+    .pill.zero{background:var(--grey-soft);color:var(--muted)}
+    .pill.warn{background:var(--amber-soft);color:#815000}
+    .pill.bad{background:var(--red-soft);color:#963441}
+    .pill.good{background:var(--green-soft);color:#21633f}
+    .band{padding:18px 22px;background:var(--blue);border-left:8px solid var(--navy);font-size:21px;line-height:1.35}
+    .coverage{height:34px;background:var(--grey-soft);display:flex;margin-top:18px;overflow:hidden}
+    .coverage .complete{width:65.315%;background:var(--green)}
+    .coverage .missing{width:34.685%;background:#c5c1ca}
+    .legend-inline{display:flex;gap:24px;font-size:16px;margin-top:12px;color:var(--muted)}
+    .legend-inline b{color:var(--ink)}
+    .metric-row{display:grid;grid-template-columns:180px 1fr 210px;align-items:center;gap:22px;padding:18px 0;border-bottom:1px solid var(--line)}
+    .metric-row strong{font-size:20px}.metric-row p{font-size:17px;color:var(--muted);line-height:1.3}
+    .source-table td:first-child{width:126px}
+    .chart-box{border:1px solid var(--line);background:#fff;padding:22px}
+    .chart-box svg{display:block;width:100%;height:auto}
+    .formula{font-size:30px;font-weight:750;line-height:1.45;padding:24px 0;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+    .formula span{white-space:nowrap}.formula .w{color:var(--navy)}
+    .bands{display:grid;grid-template-columns:100px 1fr 120px;margin-top:22px;border-top:1px solid var(--line)}
+    .bands div{padding:12px 10px;border-bottom:1px solid var(--line);font-size:17px}
+    .bands .head{font:700 13px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;color:var(--muted);background:var(--grey-soft)}
+    .test-row{display:grid;grid-template-columns:64px 250px 1fr 330px;gap:20px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line)}
+    .test-row .n{font:800 28px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--navy)}
+    .test-row strong{font-size:21px}.test-row p{font-size:17px;color:var(--muted);line-height:1.35}
+    .result-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:24px}
+    .result{background:#fff;padding:22px 24px;min-height:150px}
+    .result .big{margin:12px 0 8px}.result p{font-size:17px;line-height:1.35;color:var(--muted)}
+    .etr{display:grid;grid-template-columns:repeat(3,1fr);margin:14px 0 28px;border:1px solid var(--line)}
+    .etr div{padding:20px;border-right:1px solid var(--line)}.etr div:last-child{border-right:0}
+    .etr b{font-size:28px;color:var(--navy)}.etr p{font-size:16px;color:var(--muted);margin-top:6px}
+    .shot{width:100%;height:100%;object-fit:cover;object-position:top;border:1px solid #bbb7c2;display:block}
+    .shot-frame{position:relative;border:10px solid #f0eff3;background:#f0eff3;box-shadow:0 12px 36px rgba(32,20,44,.15);overflow:hidden}
+    .walkthrough{display:flex;flex-direction:column;gap:0}
+    .walkthrough .step{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+    .walkthrough .step b{font:800 20px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--navy)}
+    .walkthrough .step strong{display:block;font-size:20px;margin-bottom:5px}.walkthrough .step p{font-size:17px;line-height:1.35;color:var(--muted)}
+    .code{background:#24212a;color:#f6f3f8;padding:20px 22px;font:17px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;border-left:8px solid var(--lime)}
+    .file-list{font:16px/1.8 ui-monospace,SFMono-Regular,Menlo,monospace;margin-top:18px}
+    .file-list a{color:var(--navy);text-decoration:none;border-bottom:1px solid #9cb6ce}
+    .process{display:grid;grid-template-columns:repeat(6,1fr);gap:0;margin-top:32px;align-items:stretch}
+    .process div{position:relative;padding:20px 18px;border-top:3px solid var(--navy);font-size:17px;line-height:1.3}
+    .process div:not(:last-child)::after{content:"\2192";position:absolute;right:-10px;top:18px;color:var(--navy);font-size:25px;z-index:2}
+    .process b{display:block;font:700 13px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--navy);margin-bottom:8px}
+    .risk-table td:first-child{font-weight:700;width:210px}.risk-table td{padding:12px 14px;font-size:17px;line-height:1.28}
+    .handoff-links{display:grid;gap:12px;margin-top:16px}
+    .handoff-links a{display:block;padding:12px 14px;border-left:5px solid var(--navy);background:var(--blue);color:var(--ink);text-decoration:none;font-weight:700}
+    .check{color:var(--green);font-weight:900;margin-right:9px}
+    .nav{position:fixed;z-index:10;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:7px 10px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(36,25,45,.9);color:#fff;backdrop-filter:blur(8px)}
+    .nav button{width:34px;height:30px;border:0;border-radius:16px;background:transparent;color:#fff;cursor:pointer;font-size:20px}
+    .nav button:hover,.nav button:focus-visible{background:rgba(255,255,255,.15);outline:2px solid var(--lime);outline-offset:2px}
+    .nav span{font:700 13px ui-monospace,SFMono-Regular,Menlo,monospace;min-width:62px;text-align:center}
+    .progress{position:absolute;left:0;bottom:0;height:6px;background:var(--lime);transition:width .2s ease}
+    .title-layout{height:100%;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:50px}
+    .title-layout h1{font-size:76px;max-width:830px}.title-layout .sub{margin-top:24px}
+    .sheet-map{position:relative;height:590px;border-left:1px solid rgba(36,86,129,.25);border-top:1px solid rgba(36,86,129,.25);background-image:linear-gradient(to right,rgba(36,86,129,.18) 1px,transparent 1px),linear-gradient(to bottom,rgba(36,86,129,.18) 1px,transparent 1px);background-size:120px 70px}
+    .sheet-map .cell{position:absolute;display:grid;place-items:center;font:800 18px ui-monospace,SFMono-Regular,Menlo,monospace;background:#fff;border:2px solid var(--navy)}
+    .sheet-map .a{left:120px;top:70px;width:240px;height:140px;background:var(--blue)}
+    .sheet-map .b{left:360px;top:210px;width:240px;height:140px;background:var(--amber-soft);border-color:var(--amber)}
+    .sheet-map .c{left:120px;top:350px;width:360px;height:140px;background:var(--green-soft);border-color:var(--green)}
+    @media (prefers-reduced-motion:reduce){.slide,.progress{transition:none}}
+    @media print{
+      html,body{overflow:visible;background:#fff}.viewport{display:block}.stage{width:1600px;height:auto;transform:none!important;box-shadow:none}
+      .slide{position:relative;opacity:1;visibility:visible;pointer-events:auto;page-break-after:always;height:900px}.nav{display:none}
+    }
+  </style>
+</head>
+<body>
+<div class="viewport"><main class="stage" id="stage">
+
+  <section class="slide slide-grid active">
+    <div class="topline"></div><div class="meta"><b>Deliverables</b> · analysis / prototype / operation</div>
+    <div class="title-layout">
+      <div>
+        <p class="eyebrow">Groupon · AI-First CEO Office (People)</p>
+        <h1>Performance evidence review</h1>
+        <p class="sub">Data analysis, a transparent rating model, a working Manager Card and a production operating model.</p>
+        <div class="rule" style="width:560px;margin-top:38px"></div>
+        <p class="label">Synthetic dataset · 222 employees</p>
+      </div>
+      <div class="sheet-map" aria-hidden="true">
+        <div class="cell a">ANALYSIS</div><div class="cell b">MODEL</div><div class="cell c">MANAGER / HR REVIEW</div>
+      </div>
+    </div>
+    <div class="page">01 / 12</div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"></div><div class="meta"><b>Brief</b> · data instinct / judgment</div>
+    <p class="eyebrow">Data review</p><h2>Score results and verified activity; keep self-report as context</h2>
+    <div class="two" style="grid-template-columns:1.08fr .92fr">
+      <div>
+        <table class="source-table">
+          <thead><tr><th>Source</th><th>Use</th><th>Reason</th></tr></thead>
+          <tbody>
+            <tr><td><span class="pill good">KPI</span></td><td><b>56.25% individual</b><br>18.75% peer position</td><td>Objective result against target</td></tr>
+            <tr><td><span class="pill">Tasks</span></td><td><b>Delivery effort only</b></td><td>1,489 of 3,791 tasks are delivery</td></tr>
+            <tr><td><span class="pill">PR</span></td><td><b>Reviewed files only</b></td><td>270 of 948 PRs have no approval</td></tr>
+            <tr><td><span class="pill zero">5/15</span></td><td><b>Context · 0%</b></td><td>Repeated, self-reported text</td></tr>
+            <tr><td><span class="pill zero">Bets</span></td><td><b>Excluded</b></td><td>All 327 updates are “On track”</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h3>Identity coverage determines whether a score is safe</h3>
+        <div class="coverage"><div class="complete"></div><div class="missing"></div></div>
+        <div class="legend-inline"><span><b>145</b> complete</span><span><b>77</b> insufficient</span></div>
+        <div class="metric-row" style="margin-top:22px"><strong>33 people</strong><p>absent from the identity map</p><span class="pill bad">unresolved</span></div>
+        <div class="metric-row"><strong>22 people</strong><p>blocked by shared handles</p><span class="pill bad">ambiguous</span></div>
+        <div class="metric-row"><strong>Strict join</strong><p>handles are never guessed from names</p><span class="pill good">employee_id</span></div>
+        <div class="band" style="margin-top:22px">Missing evidence produces <b>Insufficient data</b>, never a low performance score.</div>
+      </div>
+    </div>
+    <div class="footnote">Sources cover different windows: KPI = Q2; tasks and PR = four weeks; 5/15 = two weeks.</div><div class="page">02 / 12</div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"></div><div class="meta"><b>Brief</b> · analysis baseline</div>
+    <p class="eyebrow">Current calibration</p><h2>Manager rating is only weakly related to KPI attainment</h2>
+    <div class="two" style="grid-template-columns:1.15fr .85fr;align-items:start">
+      <div class="chart-box">
+        <svg viewBox="0 0 840 460" role="img" aria-label="Median KPI attainment by manager rating">
+          <text x="20" y="28" font-size="17" font-weight="700" fill="#20202a">Median KPI attainment by manager rating</text>
+          <line x1="76" y1="380" x2="795" y2="380" stroke="#a9a5ae"/><line x1="76" y1="70" x2="76" y2="380" stroke="#a9a5ae"/>
+          <g stroke="#dedbe2"><line x1="76" y1="318" x2="795" y2="318"/><line x1="76" y1="256" x2="795" y2="256"/><line x1="76" y1="194" x2="795" y2="194"/><line x1="76" y1="132" x2="795" y2="132"/><line x1="76" y1="70" x2="795" y2="70"/></g>
+          <line x1="76" y1="194" x2="795" y2="194" stroke="#bf7e18" stroke-dasharray="8 6" stroke-width="2"/>
+          <text x="710" y="182" font-size="13" fill="#815000">100% target</text>
+          <polyline points="105,337 270,256 435,219 600,231 765,182" fill="none" stroke="#6f6b76" stroke-width="5"/>
+          <g fill="#6f6b76"><circle cx="105" cy="337" r="9"/><circle cx="270" cy="256" r="9"/><circle cx="435" cy="219" r="9"/><circle cx="600" cy="231" r="9"/><circle cx="765" cy="182" r="9"/></g>
+          <g font-size="16" fill="#20202a" text-anchor="middle"><text x="105" y="418">1</text><text x="270" y="418">2</text><text x="435" y="418">3</text><text x="600" y="418">4</text><text x="765" y="418">5</text></g>
+          <g font-size="14" fill="#6c6875" text-anchor="end"><text x="65" y="384">70%</text><text x="65" y="322">80%</text><text x="65" y="260">90%</text><text x="65" y="198">100%</text><text x="65" y="136">110%</text><text x="65" y="74">120%</text></g>
+          <g font-size="16" font-weight="700" fill="#20202a" text-anchor="middle"><text x="105" y="322">77%</text><text x="270" y="241">90%</text><text x="435" y="204">96%</text><text x="600" y="216">94%</text><text x="765" y="167">102%</text></g>
+        </svg>
+      </div>
+      <div>
+        <div class="result" style="border-top:4px solid var(--navy)"><span class="label">KPI × rating correlation</span><div class="big accent">0.28</div><p>There is no observable consistent rating logic.</p></div>
+        <div class="metric-row"><strong>Rating 4</strong><p>has lower median KPI than rating 3</p><span class="pill bad">94% vs 96%</span></div>
+        <div class="metric-row"><strong>10 people</strong><p>KPI at or below 75%, rating 4–5</p><span class="pill bad">high rating</span></div>
+        <div class="metric-row"><strong>7 people</strong><p>KPI at or above 105%, rating 1–2</p><span class="pill warn">low rating</span></div>
+      </div>
+    </div>
+    <div class="footnote">This is a consistency baseline, not a claim that KPI fully defines performance.</div><div class="page">03 / 12</div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"></div><div class="meta"><b>Brief</b> · simple rubric / adaptable model</div>
+    <p class="eyebrow">Calculation</p><h2>The model combines one result measure with verified peer-relative activity</h2>
+    <div class="two" style="grid-template-columns:1.25fr .75fr">
+      <div>
+        <div class="formula"><span><b class="w">56.25%</b> KPI vs target</span> + <span><b class="w">18.75%</b> KPI vs peers</span> + <span><b class="w">25%</b> activity vs peers</span></div>
+        <div class="metric-row"><strong>KPI</strong><p>actual divided by target; peer position uses department × seniority average</p><span class="pill good">75% total</span></div>
+        <div class="metric-row"><strong>Activity</strong><p>delivery effort; Engineering splits delivery and approved PR files 50/50</p><span class="pill">25% total</span></div>
+        <div class="metric-row"><strong>5/15</strong><p>shown on the card but not used in the score</p><span class="pill zero">0%</span></div>
+        <div class="band" style="margin-top:20px">The model calculates a <b>review proposal</b>. The manager and HR retain the final rating decision.</div>
+      </div>
+      <div>
+        <h3>Editable rating bands</h3>
+        <div class="bands">
+          <div class="head">Rating</div><div class="head">Score</div><div class="head">Tag</div>
+          <div>1</div><div>&lt; 75%</div><div>Lowest</div>
+          <div>2</div><div>75–95%</div><div>Below</div>
+          <div>3</div><div>95–105%</div><div>Median</div>
+          <div>4</div><div>105–125%</div><div>Above</div>
+          <div>5</div><div>125%+</div><div>Highest</div>
+        </div>
+        <p class="sub" style="font-size:17px;margin-top:20px">Weights and bands live in Settings / <span class="mono">rating_policy.json</span>; formula code does not contain hidden thresholds.</p>
+      </div>
+    </div>
+    <div class="page">04 / 12</div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"></div><div class="meta"><b>Brief</b> · evaluation mechanism</div>
+    <p class="eyebrow">Evaluation design</p><h2>There is no ground truth, so we test whether the rating withstands a challenge</h2>
+    <div class="test-row"><span class="n">01</span><strong>Target ordering</strong><p>Do higher ratings show higher KPI attainment and fewer people below target?</p><span class="pill">monotonicity</span></div>
+    <div class="test-row"><span class="n">02</span><strong>Dominance contradictions</strong><p>Within one peer group, is a much higher-rated person worse on every available signal?</p><span class="pill">pairwise consistency</span></div>
+    <div class="test-row"><span class="n">03</span><strong>Obvious contradictions</strong><p>How many ratings 4–5 sit below 75% KPI attainment without counter-evidence?</p><span class="pill">edge cases</span></div>
+    <div class="test-row"><span class="n">04</span><strong>Stability</strong><p>When activity is split into odd and even weeks, do people remain within one rating point?</p><span class="pill">sensitivity</span></div>
+    <div class="band" style="margin-top:24px">This supports a claim of <b>better internal defensibility</b>, not objective predictive accuracy.</div>
+    <div class="footnote">Evaluation population: 145 employees with complete evidence profiles.</div><div class="page">05 / 12</div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"></div><div class="meta"><b>Brief</b> · evaluation results</div>
+    <p class="eyebrow">Evaluation</p><h2>The evidence model removes the strongest internal contradictions</h2>
+    <div class="result-strip">
+      <div class="result"><span class="label">Dominance contradictions</span><div class="big"><span class="bad">27</span> → <span class="good">0</span></div><p>Same peer group, 2+ rating-point difference, higher-rated person worse on every signal.</p></div>
+      <div class="result"><span class="label">Rating 4–5 with KPI below 75%</span><div class="big"><span class="bad">8</span> → <span class="good">0</span></div><p>Obvious result/rating conflicts disappear in the calculated proposal.</p></div>
+      <div class="result"><span class="label">Odd / even week stability</span><div class="big good">84%</div><p>People land within one rating point when activity weeks are split.</p></div>
+    </div>
+    <table style="margin-top:30px">
+      <thead><tr><th>Rating</th><th class="num">Manager median KPI</th><th class="num">Manager below target</th><th class="num">Model median KPI</th><th class="num">Model below target</th></tr></thead>
+      <tbody>
+        <tr><td><b>1</b></td><td class="num">77%</td><td class="num">92%</td><td class="num">68%</td><td class="num"><b>100%</b></td></tr>
+        <tr><td><b>2</b></td><td class="num">90%</td><td class="num">72%</td><td class="num">89%</td><td class="num">94%</td></tr>
+        <tr><td><b>3</b></td><td class="num">96%</td><td class="num">53%</td><td class="num">96%</td><td class="num">62%</td></tr>
+        <tr><td><b>4</b></td><td class="num bad"><b>94%</b></td><td class="num">65%</td><td class="num good"><b>106%</b></td><td class="num good"><b>26%</b></td></tr>
+        <tr><td><b>5</b></td><td class="num">102%</td><td class="num">47%</td><td class="num good"><b>116%</b></td><td class="num good"><b>5%</b></td></tr>
+      </tbody>
+    </table>
+    <div class="footnote">KPI contributes to the model, so improved KPI ordering is partly designed in. The pairwise and stability tests add separate checks.</div><div class="page">06 / 12</div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"></div><div class="meta"><b>Brief</b> · working code / observability</div>
+    <p class="eyebrow">Google Sheet</p><h2>The Sheet was the transparent modeling and verification environment</h2>
+    <div class="etr"><div><b>E_ Extract</b><p>source data as supplied</p></div><div><b>T_ Transform</b><p>identity, consolidation and scoring</p></div><div><b>R_ Report</b><p>Manager Card and HR Dashboard</p></div></div>
+    <div class="two" style="grid-template-columns:.72fr 1.28fr;height:510px">
+      <div>
+        <div class="metric-row"><strong>Settings</strong><p>editable rating bands and weights</p><span class="pill good">source of policy</span></div>
+        <div class="metric-row"><strong>Login Registry</strong><p>all employees, system handles and source counts</p><span class="pill">join audit</span></div>
+        <div class="metric-row"><strong>Rating Model</strong><p>all inputs, relative metrics, tags and calculated rating</p><span class="pill">calculation</span></div>
+        <p class="sub" style="font-size:18px;margin-top:26px">A reviewer can change a weight or threshold and see every dependent formula recalculate.</p>
+      </div>
+      <div class="shot-frame"><img class="shot" src="presentation-assets/sheet-settings.png" alt="Google Sheet Settings tab"></div>
+    </div>
+    <div class="page">07 / 12</div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"></div><div class="meta"><b>Brief</b> · person-level proof of concept</div>
+    <p class="eyebrow">Manager workflow</p><h2>Manager Card puts the evidence and the required action in one review</h2>
+    <div class="two" style="grid-template-columns:1.25fr .75fr;height:650px">
+      <div class="shot-frame"><img class="shot" src="presentation-assets/sheet-manager-card.png" alt="Google Sheet Manager Card"></div>
+      <div class="walkthrough">
+        <div class="step"><b>01</b><div><strong>Select manager and employee</strong><p>The employee list contains only direct reports of the selected manager.</p></div></div>
+        <div class="step"><b>02</b><div><strong>Review result and peer context</strong><p>KPI against target; KPI, delivery and reviewed PR activity against department × seniority peers.</p></div></div>
+        <div class="step"><b>03</b><div><strong>Read the difference status</strong><p>Supported, Justify, Major gap or Insufficient data.</p></div></div>
+        <div class="step"><b>04</b><div><strong>Add manager context</strong><p>A retained difference requires an explanation before the final rating decision.</p></div></div>
+      </div>
+    </div>
+    <div class="page">08 / 12</div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"></div><div class="meta"><b>Brief</b> · company-level evaluation</div>
+    <p class="eyebrow">HR workflow</p><h2>HR Dashboard shows where calibration needs attention</h2>
+    <div class="two" style="grid-template-columns:1.25fr .75fr;height:650px">
+      <div class="shot-frame"><img class="shot" src="presentation-assets/sheet-hr-dashboard.png" alt="Google Sheet HR Dashboard"></div>
+      <div class="walkthrough">
+        <div class="step"><b>01</b><div><strong>Filter one population</strong><p>Manager, seniority and department filters drive the table, chart and detail together.</p></div></div>
+        <div class="step"><b>02</b><div><strong>Compare both rating systems</strong><p>Counts, KPI median and below-target share for manager and calculated ratings.</p></div></div>
+        <div class="step"><b>03</b><div><strong>Inspect the people behind the gap</strong><p>The employee detail keeps the model reviewable instead of reducing it to a company average.</p></div></div>
+        <div class="band" style="margin-top:24px">The dashboard tells HR <b>where to look</b>; it does not make the final rating decision.</div>
+      </div>
+    </div>
+    <div class="page">09 / 12</div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"></div><div class="meta"><b>Brief</b> · runnable repository / AI use</div>
+    <p class="eyebrow">Runnable artifact</p><h2>The tested Sheet logic is packaged in one local HTML file</h2>
+    <div class="two" style="grid-template-columns:.78fr 1.22fr;height:660px">
+      <div>
+        <div class="code">open Groupon_Performance_MVP.html</div>
+        <div class="file-list">
+          <a href="Groupon_Performance_MVP.html">Groupon_Performance_MVP.html</a> — runnable output<br>
+          <a href="Presentation.html">Presentation.html</a> — guided walkthrough<br>
+          <a href="3_MVP.md">1_...md to 5_...md</a> — analysis and handoff
+        </div>
+        <div class="rule"></div>
+        <h3>Use of AI</h3>
+        <div class="walkthrough">
+          <div class="step"><b>1</b><div><p>Manual dependency map and Sheet model first.</p></div></div>
+          <div class="step"><b>2</b><div><p>AI-assisted formulas, edge-case checks and wording.</p></div></div>
+          <div class="step"><b>3</b><div><p>HTML implementation and automated reconciliation against agreed outputs.</p></div></div>
+        </div>
+        <p class="sub" style="font-size:17px;margin-top:16px">No server, public URL, API key or runtime AI call.</p>
+      </div>
+      <div class="shot-frame"><img class="shot" src="presentation-assets/html-manager.png" alt="Runnable HTML Manager Card"></div>
+    </div>
+    <div class="page">10 / 12</div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"></div><div class="meta"><b>Brief</b> · system thinking / 2,000 people</div>
+    <p class="eyebrow">Production operation</p><h2>Run the model before rating conversations, not as permanent employee monitoring</h2>
+    <div class="process">
+      <div><b>01</b>Data hygiene</div><div><b>02</b>Evidence calculation</div><div><b>03</b>Manager review</div><div><b>04</b>Gap explanation</div><div><b>05</b>Calibration where needed</div><div><b>06</b>Final human rating</div>
+    </div>
+    <div class="three" style="margin-top:42px">
+      <div><span class="label">Access</span><div class="metric-row" style="grid-template-columns:140px 1fr"><strong>Employee</strong><p>own evidence; peers anonymous</p></div><div class="metric-row" style="grid-template-columns:140px 1fr"><strong>Manager</strong><p>named reporting line</p></div><div class="metric-row" style="grid-template-columns:140px 1fr"><strong>HR</strong><p>company calibration</p></div></div>
+      <div><span class="label">Human gates</span><div class="metric-row" style="grid-template-columns:120px 1fr"><strong>1 point</strong><p>manager justification</p></div><div class="metric-row" style="grid-template-columns:120px 1fr"><strong>2+ points</strong><p>calibration discussion</p></div><div class="metric-row" style="grid-template-columns:120px 1fr"><strong>Final</strong><p>manager and HR decision</p></div></div>
+      <div><span class="label">Operating measures</span><div class="metric-row" style="grid-template-columns:150px 1fr"><strong>145 / 222</strong><p>complete coverage</p></div><div class="metric-row" style="grid-template-columns:150px 1fr"><strong>48 / 145</strong><p>major gaps</p></div><div class="metric-row" style="grid-template-columns:150px 1fr"><strong>6 groups</strong><p>weak benchmarks</p></div></div>
+    </div>
+    <div class="band" style="margin-top:34px">Between rating cycles, run data-hygiene checks only. Recalculation is a batch job; human attention goes to exceptions.</div>
+    <div class="page">11 / 12</div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"></div><div class="meta"><b>Brief</b> · fairness / gaming / handoff</div>
+    <p class="eyebrow">Limits and handoff</p><h2>The model stays useful only if its risks remain visible</h2>
+    <div class="two" style="grid-template-columns:1.15fr .85fr">
+      <div>
+        <table class="risk-table">
+          <thead><tr><th>Risk</th><th>Current mitigation</th></tr></thead>
+          <tbody>
+            <tr><td>Metric gaming</td><td>Effort instead of task count; reviewed PR files only; activity capped at 25%.</td></tr>
+            <tr><td>Score becomes the goal</td><td>Manager context and a human final decision remain mandatory.</td></tr>
+            <tr><td>Period mismatch</td><td>Visible limitation in the prototype; production must align rating and evidence windows.</td></tr>
+            <tr><td>Weak peer groups</td><td>Flag groups below three complete profiles and review the benchmark.</td></tr>
+            <tr><td>Wrong identity</td><td>Use confirmed employee IDs only; unresolved evidence never becomes low performance.</td></tr>
+            <tr><td>Unequal observability</td><td>Role-aware evidence policy; no requirement that every role generates Engineering-like traces.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h3>Handoff</h3>
+        <div class="handoff-links">
+          <a href="1_Data%20analysis.md"><span class="check">✓</span>Data analysis</a>
+          <a href="2_Performance%20evaluation.md"><span class="check">✓</span>Rubric and evaluation</a>
+          <a href="3_MVP.md"><span class="check">✓</span>Artifact and submitted-file map</a>
+          <a href="4_Production%20blueprint.md"><span class="check">✓</span>Production blueprint</a>
+          <a href="5_Use%20of%20AI.md"><span class="check">✓</span>Use of AI</a>
+          <a href="Groupon_Performance_MVP.html"><span class="check">✓</span>Runnable HTML artifact</a>
+        </div>
+        <div class="band" style="margin-top:26px">Automate evidence collection and consistency checks — <b>not the performance decision</b>.</div>
+      </div>
+    </div>
+    <div class="footnote">The calculated rating is a diagnostic review proposal, not an automated HR decision.</div><div class="page">12 / 12</div>
+  </section>
+
+  <div class="progress" id="progress"></div>
+</main></div>
+<div class="nav" aria-label="Slide navigation"><button id="prev" aria-label="Previous slide">‹</button><span id="counter">01 / 12</span><button id="next" aria-label="Next slide">›</button></div>
+<script>
+  const slides=[...document.querySelectorAll('.slide')],stage=document.getElementById('stage'),counter=document.getElementById('counter'),progress=document.getElementById('progress');let index=0;
+  function fit(){const s=Math.min(innerWidth/1600,innerHeight/900);stage.style.transform=`scale(${s})`}
+  function show(n){index=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,i)=>s.classList.toggle('active',i===index));counter.textContent=`${String(index+1).padStart(2,'0')} / ${String(slides.length).padStart(2,'0')}`;progress.style.width=`${(index+1)/slides.length*100}%`;history.replaceState(null,'',`#${index+1}`)}
+  document.getElementById('prev').onclick=()=>show(index-1);document.getElementById('next').onclick=()=>show(index+1);
+  addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(index+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(index-1)}if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1);if(e.key.toLowerCase()==='f')document.documentElement.requestFullscreen?.()});
+  addEventListener('resize',fit);fit();const requested=Number(location.hash.slice(1));show(Number.isFinite(requested)&&requested>0?requested-1:0);
+</script>
+</body>
+</html>
