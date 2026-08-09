@@ -14,8 +14,8 @@
     *{box-sizing:border-box}
     html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--canvas);font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
     button,a{font:inherit}
-    .viewport{width:100%;height:100%;display:grid;place-items:center}
-    .stage{position:relative;width:1600px;height:900px;transform-origin:center center;background:var(--paper);box-shadow:0 18px 60px rgba(35,25,48,.18);overflow:hidden}
+    .viewport{width:100%;height:100%;display:grid;place-items:start center}
+    .stage{position:relative;width:1600px;height:900px;transform-origin:top center;background:var(--paper);box-shadow:0 18px 60px rgba(35,25,48,.18);overflow:hidden}
     .slide{position:absolute;inset:0;padding:68px 86px 64px;background:var(--paper);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s ease}
     .slide.active{opacity:1;visibility:visible;pointer-events:auto}
     .slide-grid{background-image:linear-gradient(to right,rgba(36,86,129,.05) 1px,transparent 1px),linear-gradient(to bottom,rgba(36,86,129,.05) 1px,transparent 1px);background-size:96px 64px}
@@ -58,6 +58,7 @@
     .source-table td:first-child{width:126px}
     .chart-box{border:1px solid var(--line);background:#fff;padding:22px}
     .chart-box svg{display:block;width:100%;height:auto}
+    .caption{margin-top:12px;font-size:15px;line-height:1.35;color:var(--muted)}
     .formula{font-size:30px;font-weight:750;line-height:1.45;padding:24px 0;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
     .formula span{white-space:nowrap}.formula .w{color:var(--navy)}
     .bands{display:grid;grid-template-columns:100px 1fr 120px;margin-top:22px;border-top:1px solid var(--line)}
@@ -94,13 +95,11 @@
     .nav button:hover,.nav button:focus-visible{background:rgba(255,255,255,.15);outline:2px solid var(--lime);outline-offset:2px}
     .nav span{font:700 13px ui-monospace,SFMono-Regular,Menlo,monospace;min-width:62px;text-align:center}
     .progress{position:absolute;left:0;bottom:0;height:6px;background:var(--lime);transition:width .2s ease}
-    .title-layout{height:100%;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:50px}
+    .title-layout{height:100%;display:grid;grid-template-columns:1.1fr .9fr;align-items:start;gap:50px;padding-top:120px}
     .title-layout h1{font-size:76px;max-width:830px}.title-layout .sub{margin-top:24px}
-    .sheet-map{position:relative;height:590px;border-left:1px solid rgba(36,86,129,.25);border-top:1px solid rgba(36,86,129,.25);background-image:linear-gradient(to right,rgba(36,86,129,.18) 1px,transparent 1px),linear-gradient(to bottom,rgba(36,86,129,.18) 1px,transparent 1px);background-size:120px 70px}
-    .sheet-map .cell{position:absolute;display:grid;place-items:center;font:800 18px ui-monospace,SFMono-Regular,Menlo,monospace;background:#fff;border:2px solid var(--navy)}
-    .sheet-map .a{left:120px;top:70px;width:240px;height:140px;background:var(--blue)}
-    .sheet-map .b{left:360px;top:210px;width:240px;height:140px;background:var(--amber-soft);border-color:var(--amber)}
-    .sheet-map .c{left:120px;top:350px;width:360px;height:140px;background:var(--green-soft);border-color:var(--green)}
+    .deliverables{margin-top:92px;border-top:2px solid var(--navy)}
+    .deliverable{padding:20px 0;border-bottom:1px solid var(--line)}
+    .deliverable strong{display:block;font-size:22px;margin-bottom:5px}.deliverable p{font-size:18px;line-height:1.35;color:var(--muted)}
     @media (prefers-reduced-motion:reduce){.slide,.progress{transition:none}}
     @media print{
       html,body{overflow:visible;background:#fff}.viewport{display:block}.stage{width:1600px;height:auto;transform:none!important;box-shadow:none}
@@ -120,14 +119,16 @@
         <p class="sub">A transparent prototype for making performance conversations more evidence-grounded.</p>
         <div class="rule" style="width:560px;margin-top:38px"></div>
         <div class="file-list">
-          <a href="Presentation.html">Presentation.html</a> — this walkthrough<br>
-          <a href="1_Data%20analysis.md">1_...md to 5_...md</a> — analysis, model, MVP, operation and AI use<br>
-          <a href="Groupon_Performance_MVP.html">Groupon_Performance_MVP.html</a> — runnable Manager Card and HR Dashboard<br>
-          <a href="https://docs.google.com/spreadsheets/d/1s1qiBj6gQVx3ynl_ltT5scdB2qJaQD57KEjnxf8MvA4/edit">Google Sheet</a> — transparent modeling prototype
+          <a href="Presentation.html">Presentation.html</a>: this walkthrough<br>
+          <a href="1_Data%20analysis.md">1_...md to 5_...md</a>: analysis, model, MVP, operation and AI use<br>
+          <a href="Groupon_Performance_MVP.html">Groupon_Performance_MVP.html</a>: runnable Manager Card and HR Dashboard<br>
+          <a href="https://docs.google.com/spreadsheets/d/1s1qiBj6gQVx3ynl_ltT5scdB2qJaQD57KEjnxf8MvA4/edit">Google Sheet</a>: transparent modeling prototype
         </div>
       </div>
-      <div class="sheet-map" aria-hidden="true">
-        <div class="cell a">PRESENTATION</div><div class="cell b">DETAILS</div><div class="cell c">RUNNABLE ARTIFACT</div>
+      <div class="deliverables">
+        <div class="deliverable"><strong>Presentation</strong><p>What was found, what was built and how it is evaluated.</p></div>
+        <div class="deliverable"><strong>Numbered details</strong><p>Short source documents for analysis, evaluation, MVP, operation and AI.</p></div>
+        <div class="deliverable"><strong>Runnable artifact + Sheet</strong><p>A local Manager Card and HR Dashboard, with the Sheet retained as the transparent model prototype.</p></div>
       </div>
     </div>
     <div class="page">01 / 10</div>
@@ -141,6 +142,7 @@
         <h3>Safe population first</h3>
         <div class="coverage"><div class="complete"></div><div class="missing"></div></div>
         <div class="legend-inline"><span><b>145</b> complete profiles</span><span><b>77</b> insufficient</span></div>
+        <p class="caption">This bar separates profiles eligible for an evidence score from profiles held out because evidence is incomplete.</p>
         <div class="metric-row" style="margin-top:24px"><strong>33 people</strong><p>absent from identity map</p><span class="pill bad">missing</span></div>
         <div class="metric-row"><strong>22 people</strong><p>blocked by shared handles</p><span class="pill bad">ambiguous</span></div>
         <div class="metric-row"><strong>Strict join</strong><p>handles are never inferred from names</p><span class="pill good">employee ID</span></div>
@@ -157,7 +159,7 @@
             <tr><td>PR</td><td><b>270 / 948</b> have no approval</td><td>count reviewed files only</td></tr>
           </tbody>
         </table>
-        <div class="band" style="margin-top:28px">The model starts by removing unreliable evidence — not by scoring everything available.</div>
+        <div class="band" style="margin-top:28px">The model starts by removing unreliable evidence, not by scoring everything available.</div>
       </div>
     </div>
     <div class="footnote">KPI covers Q2; tasks and PR cover four weeks; 5/15 covers two weeks.</div><div class="page">02 / 10</div>
@@ -180,6 +182,7 @@
           <g font-size="14" fill="#6c6875" text-anchor="end"><text x="65" y="384">70%</text><text x="65" y="322">80%</text><text x="65" y="260">90%</text><text x="65" y="198">100%</text><text x="65" y="136">110%</text><text x="65" y="74">120%</text></g>
           <g font-size="16" font-weight="700" fill="#20202a" text-anchor="middle"><text x="105" y="322">77%</text><text x="270" y="241">90%</text><text x="435" y="204">96%</text><text x="600" y="216">94%</text><text x="765" y="167">102%</text></g>
         </svg>
+        <p class="caption">This chart plots median KPI result for each existing manager-rating level. Rating 4 is below rating 3, so the rating scale is not consistently ordered by KPI result.</p>
       </div>
       <div>
         <div class="result" style="border-top:4px solid var(--navy)"><span class="label">KPI × rating correlation</span><div class="big accent">0.28</div><p>There is no observable consistent rating logic.</p></div>
@@ -216,7 +219,7 @@
         <div class="metric-row"><strong>Activity</strong><p>Delivery effort; Engineering splits delivery and reviewed PR files 50/50</p><span class="pill">25% total</span></div>
         <div class="metric-row"><strong>Settings</strong><p>Weights, step and bands are visible and editable in the Sheet</p><span class="pill good">no hidden rules</span></div>
       </div>
-      <div><div class="shot-frame" style="height:420px"><img class="shot" src="presentation-assets/sheet-settings.png" alt="Google Sheet Settings tab"></div><div class="band" style="margin-top:22px">No required evidence means <b>no calculated rating</b>.</div></div>
+      <div><div class="shot-frame" style="height:390px"><img class="shot" src="presentation-assets/sheet-settings.png" alt="Google Sheet Settings tab"></div><p class="caption">The Settings tab is the single visible place for weights, step and rating bands.</p><div class="band" style="margin-top:18px">No required evidence means <b>no calculated rating</b>.</div></div>
     </div>
     <div class="page">05 / 10</div>
   </section>
@@ -239,7 +242,7 @@
     <div class="topline"></div><div class="meta"><b>Person-level proof of concept</b> · manager workflow</div>
     <p class="eyebrow">Manager Card</p><h2>One view combines evidence, peer context and the required action</h2>
     <div class="two" style="grid-template-columns:1.25fr .75fr;height:650px">
-      <div class="shot-frame"><img class="shot" src="presentation-assets/sheet-manager-card.png" alt="Google Sheet Manager Card"></div>
+      <div><div class="shot-frame" style="height:590px"><img class="shot" src="presentation-assets/sheet-manager-card.png" alt="Google Sheet Manager Card"></div><p class="caption">The Manager Card brings selection, individual evidence, peer context, rating proposal and manager feedback into one workflow.</p></div>
       <div class="walkthrough">
         <div class="step"><b>01</b><div><strong>Select manager and employee</strong><p>The employee list contains only direct reports of the selected manager.</p></div></div>
         <div class="step"><b>02</b><div><strong>Compare individual result with peers</strong><p>KPI result, delivery effort and reviewed PR activity are shown against department × seniority peers.</p></div></div>
@@ -254,7 +257,7 @@
     <div class="topline"></div><div class="meta"><b>Company calibration</b> · HR workflow / evaluation</div>
     <p class="eyebrow">HR Dashboard</p><h2>The company view shows where manager ratings need a challenge</h2>
     <div class="two" style="grid-template-columns:1.2fr .8fr;height:620px">
-      <div class="shot-frame"><img class="shot" src="presentation-assets/sheet-hr-dashboard.png" alt="Google Sheet HR Dashboard"></div>
+      <div><div class="shot-frame" style="height:560px"><img class="shot" src="presentation-assets/sheet-hr-dashboard.png" alt="Google Sheet HR Dashboard"></div><p class="caption">The HR Dashboard compares the same filtered population across the manager rating and calculated rating.</p></div>
       <div>
         <div class="walkthrough">
           <div class="step"><b>01</b><div><strong>Filter one population</strong><p>Manager, seniority and department filters drive table, chart and employee detail together.</p></div></div>
@@ -281,7 +284,7 @@
         </div>
         <div class="band" style="margin-top:30px">AI helps build and test the system. <b>Humans remain accountable for ratings.</b></div>
       </div>
-      <div class="shot-frame"><img class="shot" src="presentation-assets/html-manager.png" alt="Runnable HTML Manager Card"></div>
+      <div><div class="shot-frame" style="height:570px"><img class="shot" src="presentation-assets/html-manager.png" alt="Runnable HTML Manager Card"></div><p class="caption">The runnable artifact mirrors the Manager Card workflow. It contains no runtime AI call.</p></div>
     </div>
     <div class="page">09 / 10</div>
   </section>
@@ -303,7 +306,7 @@
 
   <div class="progress" id="progress"></div>
 </main></div>
-<div class="nav" aria-label="Slide navigation"><button id="prev" aria-label="Previous slide">‹</button><span id="counter">01 / 12</span><button id="next" aria-label="Next slide">›</button></div>
+<div class="nav" aria-label="Slide navigation"><button id="prev" aria-label="Previous slide">‹</button><span id="counter">01 / 10</span><button id="next" aria-label="Next slide">›</button></div>
 <script>
   const slides=[...document.querySelectorAll('.slide')],stage=document.getElementById('stage'),counter=document.getElementById('counter'),progress=document.getElementById('progress');let index=0;
   function fit(){const s=Math.min(innerWidth/1600,innerHeight/900);stage.style.transform=`scale(${s})`}
