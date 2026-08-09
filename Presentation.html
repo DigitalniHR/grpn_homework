@@ -112,49 +112,55 @@
 <div class="viewport"><main class="stage" id="stage">
 
   <section class="slide slide-grid active">
-    <div class="topline"></div><div class="meta"><b>Deliverables</b> · analysis / prototype / operation</div>
+    <div class="topline"></div><div class="meta"><b>Submission</b> · presentation / details / artifact / prototype</div>
     <div class="title-layout">
       <div>
         <p class="eyebrow">Groupon · AI-First CEO Office (People)</p>
         <h1>Performance evidence review</h1>
-        <p class="sub">Data analysis, a transparent rating model, a working Manager Card and a production operating model.</p>
+        <p class="sub">A transparent prototype for making performance conversations more evidence-grounded.</p>
         <div class="rule" style="width:560px;margin-top:38px"></div>
-        <p class="label">Synthetic dataset · 222 employees</p>
+        <div class="file-list">
+          <a href="Presentation.html">Presentation.html</a> — this walkthrough<br>
+          <a href="1_Data%20analysis.md">1_...md to 5_...md</a> — analysis, model, MVP, operation and AI use<br>
+          <a href="Groupon_Performance_MVP.html">Groupon_Performance_MVP.html</a> — runnable Manager Card and HR Dashboard<br>
+          <a href="https://docs.google.com/spreadsheets/d/1s1qiBj6gQVx3ynl_ltT5scdB2qJaQD57KEjnxf8MvA4/edit">Google Sheet</a> — transparent modeling prototype
+        </div>
       </div>
       <div class="sheet-map" aria-hidden="true">
-        <div class="cell a">ANALYSIS</div><div class="cell b">MODEL</div><div class="cell c">MANAGER / HR REVIEW</div>
+        <div class="cell a">PRESENTATION</div><div class="cell b">DETAILS</div><div class="cell c">RUNNABLE ARTIFACT</div>
       </div>
     </div>
-    <div class="page">01 / 12</div>
+    <div class="page">01 / 10</div>
   </section>
 
   <section class="slide">
-    <div class="topline"></div><div class="meta"><b>Brief</b> · data instinct / judgment</div>
-    <p class="eyebrow">Data review</p><h2>Score results and verified activity; keep self-report as context</h2>
-    <div class="two" style="grid-template-columns:1.08fr .92fr">
+    <div class="topline"></div><div class="meta"><b>Data analysis</b> · what is safe to use</div>
+    <p class="eyebrow">What we found in the data</p><h2>The inputs contain both useful evidence and material noise</h2>
+    <div class="two" style="grid-template-columns:.9fr 1.1fr">
       <div>
-        <table class="source-table">
-          <thead><tr><th>Source</th><th>Use</th><th>Reason</th></tr></thead>
+        <h3>Safe population first</h3>
+        <div class="coverage"><div class="complete"></div><div class="missing"></div></div>
+        <div class="legend-inline"><span><b>145</b> complete profiles</span><span><b>77</b> insufficient</span></div>
+        <div class="metric-row" style="margin-top:24px"><strong>33 people</strong><p>absent from identity map</p><span class="pill bad">missing</span></div>
+        <div class="metric-row"><strong>22 people</strong><p>blocked by shared handles</p><span class="pill bad">ambiguous</span></div>
+        <div class="metric-row"><strong>Strict join</strong><p>handles are never inferred from names</p><span class="pill good">employee ID</span></div>
+        <div class="band" style="margin-top:22px">Missing evidence becomes <b>Insufficient data</b>, never low performance.</div>
+      </div>
+      <div>
+        <h3>What cannot be scored as delivered performance</h3>
+        <table class="source-table" style="margin-top:18px">
+          <thead><tr><th>Signal</th><th>Finding</th><th>Decision</th></tr></thead>
           <tbody>
-            <tr><td><span class="pill good">KPI</span></td><td><b>56.25% individual</b><br>18.75% peer position</td><td>Objective result against target</td></tr>
-            <tr><td><span class="pill">Tasks</span></td><td><b>Delivery effort only</b></td><td>1,489 of 3,791 tasks are delivery</td></tr>
-            <tr><td><span class="pill">PR</span></td><td><b>Reviewed files only</b></td><td>270 of 948 PRs have no approval</td></tr>
-            <tr><td><span class="pill zero">5/15</span></td><td><b>Context · 0%</b></td><td>Repeated, self-reported text</td></tr>
-            <tr><td><span class="pill zero">Bets</span></td><td><b>Excluded</b></td><td>All 327 updates are “On track”</td></tr>
+            <tr><td>Tasks</td><td><b>1,489 / 3,791</b> are delivery work</td><td>exclude admin, reporting and bets</td></tr>
+            <tr><td>Bets</td><td><b>327 / 327</b> marked “On track”</td><td>no variance → exclude</td></tr>
+            <tr><td>5/15</td><td><b>333 / 444</b> texts are unique</td><td>context only</td></tr>
+            <tr><td>PR</td><td><b>270 / 948</b> have no approval</td><td>count reviewed files only</td></tr>
           </tbody>
         </table>
-      </div>
-      <div>
-        <h3>Identity coverage determines whether a score is safe</h3>
-        <div class="coverage"><div class="complete"></div><div class="missing"></div></div>
-        <div class="legend-inline"><span><b>145</b> complete</span><span><b>77</b> insufficient</span></div>
-        <div class="metric-row" style="margin-top:22px"><strong>33 people</strong><p>absent from the identity map</p><span class="pill bad">unresolved</span></div>
-        <div class="metric-row"><strong>22 people</strong><p>blocked by shared handles</p><span class="pill bad">ambiguous</span></div>
-        <div class="metric-row"><strong>Strict join</strong><p>handles are never guessed from names</p><span class="pill good">employee_id</span></div>
-        <div class="band" style="margin-top:22px">Missing evidence produces <b>Insufficient data</b>, never a low performance score.</div>
+        <div class="band" style="margin-top:28px">The model starts by removing unreliable evidence — not by scoring everything available.</div>
       </div>
     </div>
-    <div class="footnote">Sources cover different windows: KPI = Q2; tasks and PR = four weeks; 5/15 = two weeks.</div><div class="page">02 / 12</div>
+    <div class="footnote">KPI covers Q2; tasks and PR cover four weeks; 5/15 covers two weeks.</div><div class="page">02 / 10</div>
   </section>
 
   <section class="slide">
@@ -182,142 +188,107 @@
         <div class="metric-row"><strong>7 people</strong><p>KPI at or above 105%, rating 1–2</p><span class="pill warn">low rating</span></div>
       </div>
     </div>
-    <div class="footnote">This is a consistency baseline, not a claim that KPI fully defines performance.</div><div class="page">03 / 12</div>
+    <div class="footnote">This is a consistency baseline, not a claim that KPI fully defines performance.</div><div class="page">03 / 10</div>
   </section>
 
   <section class="slide">
-    <div class="topline"></div><div class="meta"><b>Brief</b> · simple rubric / adaptable model</div>
-    <p class="eyebrow">Calculation</p><h2>The model combines one result measure with verified peer-relative activity</h2>
+    <div class="topline"></div><div class="meta"><b>Evidence policy</b> · result first / context second</div>
+    <p class="eyebrow">Signals selected</p><h2>Results are primary; activity is verified, role-aware context</h2>
+    <div class="three" style="margin-top:44px">
+      <div>
+        <span class="label">KPI result</span><div class="big accent" style="margin:18px 0">Primary</div><p class="sub" style="font-size:20px">Actual result against an explicit target. This is the strongest observable outcome signal.</p>
+      </div>
+      <div>
+        <span class="label">Activity</span><div class="big accent" style="margin:18px 0">Verified</div><p class="sub" style="font-size:20px">Delivery effort for all roles; reviewed PR files for Engineering. No unapproved PRs, admin tasks or Bet updates.</p>
+      </div>
+      <div><span class="label">Control group</span><div class="big accent" style="margin:18px 0">Relative</div><p class="sub" style="font-size:20px">Department × seniority peers provide a benchmark when an absolute target is absent. Fewer than 3 complete profiles = weak benchmark.</p></div>
+    </div>
+    <div class="band" style="margin-top:50px">5/15 updates remain visible as context, but have <b>0% rating weight</b>.</div><div class="page">04 / 10</div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"></div><div class="meta"><b>Rating model</b> · simple / editable / observable</div>
+    <p class="eyebrow">Rubric</p><h2>One weighted score, five editable bands</h2>
     <div class="two" style="grid-template-columns:1.25fr .75fr">
       <div>
         <div class="formula"><span><b class="w">56.25%</b> KPI vs target</span> + <span><b class="w">18.75%</b> KPI vs peers</span> + <span><b class="w">25%</b> activity vs peers</span></div>
-        <div class="metric-row"><strong>KPI</strong><p>actual divided by target; peer position uses department × seniority average</p><span class="pill good">75% total</span></div>
-        <div class="metric-row"><strong>Activity</strong><p>delivery effort; Engineering splits delivery and approved PR files 50/50</p><span class="pill">25% total</span></div>
-        <div class="metric-row"><strong>5/15</strong><p>shown on the card but not used in the score</p><span class="pill zero">0%</span></div>
-        <div class="band" style="margin-top:20px">The model calculates a <b>review proposal</b>. The manager and HR retain the final rating decision.</div>
+        <div class="metric-row"><strong>KPI</strong><p>Result against target plus position in the peer group</p><span class="pill good">75% total</span></div>
+        <div class="metric-row"><strong>Activity</strong><p>Delivery effort; Engineering splits delivery and reviewed PR files 50/50</p><span class="pill">25% total</span></div>
+        <div class="metric-row"><strong>Settings</strong><p>Weights, step and bands are visible and editable in the Sheet</p><span class="pill good">no hidden rules</span></div>
       </div>
-      <div>
-        <h3>Editable rating bands</h3>
-        <div class="bands">
-          <div class="head">Rating</div><div class="head">Score</div><div class="head">Tag</div>
-          <div>1</div><div>&lt; 75%</div><div>Lowest</div>
-          <div>2</div><div>75–95%</div><div>Below</div>
-          <div>3</div><div>95–105%</div><div>Median</div>
-          <div>4</div><div>105–125%</div><div>Above</div>
-          <div>5</div><div>125%+</div><div>Highest</div>
-        </div>
-        <p class="sub" style="font-size:17px;margin-top:20px">Weights and bands live in Settings / <span class="mono">rating_policy.json</span>; formula code does not contain hidden thresholds.</p>
-      </div>
+      <div><div class="shot-frame" style="height:420px"><img class="shot" src="presentation-assets/sheet-settings.png" alt="Google Sheet Settings tab"></div><div class="band" style="margin-top:22px">No required evidence means <b>no calculated rating</b>.</div></div>
     </div>
-    <div class="page">04 / 12</div>
+    <div class="page">05 / 10</div>
   </section>
 
   <section class="slide">
-    <div class="topline"></div><div class="meta"><b>Brief</b> · evaluation mechanism</div>
-    <p class="eyebrow">Evaluation design</p><h2>There is no ground truth, so we test whether the rating withstands a challenge</h2>
-    <div class="test-row"><span class="n">01</span><strong>Target ordering</strong><p>Do higher ratings show higher KPI results and fewer people below target?</p><span class="pill">monotonicity</span></div>
-    <div class="test-row"><span class="n">02</span><strong>Dominance contradictions</strong><p>Within one peer group, is a much higher-rated person worse on every available signal?</p><span class="pill">pairwise consistency</span></div>
-    <div class="test-row"><span class="n">03</span><strong>Obvious contradictions</strong><p>How many ratings 4–5 have a KPI result below 75% without counter-evidence?</p><span class="pill">edge cases</span></div>
-    <div class="test-row"><span class="n">04</span><strong>Stability</strong><p>When activity is split into odd and even weeks, do people remain within one rating point?</p><span class="pill">sensitivity</span></div>
-    <div class="band" style="margin-top:24px">This supports a claim of <b>better internal defensibility</b>, not objective predictive accuracy.</div>
-    <div class="footnote">Evaluation population: 145 employees with complete evidence profiles.</div><div class="page">05 / 12</div>
-  </section>
-
-  <section class="slide">
-    <div class="topline"></div><div class="meta"><b>Brief</b> · evaluation results</div>
-    <p class="eyebrow">Evaluation</p><h2>The evidence model removes the strongest internal contradictions</h2>
-    <div class="result-strip">
-      <div class="result"><span class="label">Dominance contradictions</span><div class="big"><span class="bad">27</span> → <span class="good">0</span></div><p>Same peer group, 2+ rating-point difference, higher-rated person worse on every signal.</p></div>
-      <div class="result"><span class="label">Rating 4–5 with KPI below 75%</span><div class="big"><span class="bad">8</span> → <span class="good">0</span></div><p>Obvious result/rating conflicts disappear in the calculated proposal.</p></div>
-      <div class="result"><span class="label">Odd / even week stability</span><div class="big good">84%</div><p>People land within one rating point when activity weeks are split.</p></div>
+    <div class="topline"></div><div class="meta"><b>Human in the loop</b> · decision support, not automation</div>
+    <p class="eyebrow">Who decides</p><h2>The system proposes a rating; the manager and HR make the judgment</h2>
+    <div class="process" style="margin-top:55px">
+      <div><b>01</b>Gather evidence</div><div><b>02</b>Calculate proposal</div><div><b>03</b>Show rating gap</div><div><b>04</b>Manager adds context</div><div><b>05</b>Calibrate exceptions</div><div><b>06</b>Human final rating</div>
     </div>
-    <table style="margin-top:30px">
-      <thead><tr><th>Rating</th><th class="num">Manager median KPI</th><th class="num">Manager below target</th><th class="num">Model median KPI</th><th class="num">Model below target</th></tr></thead>
-      <tbody>
-        <tr><td><b>1</b></td><td class="num">77%</td><td class="num">92%</td><td class="num">68%</td><td class="num"><b>100%</b></td></tr>
-        <tr><td><b>2</b></td><td class="num">90%</td><td class="num">72%</td><td class="num">89%</td><td class="num">94%</td></tr>
-        <tr><td><b>3</b></td><td class="num">96%</td><td class="num">53%</td><td class="num">96%</td><td class="num">62%</td></tr>
-        <tr><td><b>4</b></td><td class="num bad"><b>94%</b></td><td class="num">65%</td><td class="num good"><b>106%</b></td><td class="num good"><b>26%</b></td></tr>
-        <tr><td><b>5</b></td><td class="num">102%</td><td class="num">47%</td><td class="num good"><b>116%</b></td><td class="num good"><b>5%</b></td></tr>
-      </tbody>
-    </table>
-    <div class="footnote">KPI contributes to the model, so improved KPI ordering is partly designed in. The pairwise and stability tests add separate checks.</div><div class="page">06 / 12</div>
-  </section>
-
-  <section class="slide">
-    <div class="topline"></div><div class="meta"><b>Brief</b> · working code / observability</div>
-    <p class="eyebrow">Google Sheet</p><h2>The Sheet was the transparent modeling and verification environment</h2>
-    <div class="etr"><div><b>E_ Extract</b><p>source data as supplied</p></div><div><b>T_ Transform</b><p>identity, consolidation and scoring</p></div><div><b>R_ Report</b><p>Manager Card and HR Dashboard</p></div></div>
-    <div class="two" style="grid-template-columns:.72fr 1.28fr;height:510px">
-      <div>
-        <div class="metric-row"><strong>Settings</strong><p>editable rating bands and weights</p><span class="pill good">source of policy</span></div>
-        <div class="metric-row"><strong>Login Registry</strong><p>all employees, system handles and source counts</p><span class="pill">join audit</span></div>
-        <div class="metric-row"><strong>Rating Model</strong><p>all inputs, relative metrics, tags and calculated rating</p><span class="pill">calculation</span></div>
-        <p class="sub" style="font-size:18px;margin-top:26px">A reviewer can change a weight or threshold and see every dependent formula recalculate.</p>
-      </div>
-      <div class="shot-frame"><img class="shot" src="presentation-assets/sheet-settings.png" alt="Google Sheet Settings tab"></div>
+    <div class="three" style="margin-top:64px">
+      <div class="result"><span class="label">Supported</span><div class="big good">0</div><p>Manager rating and calculated rating match. No calibration action.</p></div>
+      <div class="result"><span class="label">Justify</span><div class="big warn">1</div><p>One-point difference. Manager records relevant context.</p></div>
+      <div class="result"><span class="label">Major gap</span><div class="big bad">2+</div><p>Two or more points. HR calibration discussion.</p></div>
     </div>
-    <div class="page">07 / 12</div>
+    <div class="band" style="margin-top:34px">The calculated rating is a <b>review proposal</b>, never the final performance decision.</div><div class="page">06 / 10</div>
   </section>
 
   <section class="slide">
-    <div class="topline"></div><div class="meta"><b>Brief</b> · person-level proof of concept</div>
-    <p class="eyebrow">Manager workflow</p><h2>Manager Card puts the evidence and the required action in one review</h2>
+    <div class="topline"></div><div class="meta"><b>Person-level proof of concept</b> · manager workflow</div>
+    <p class="eyebrow">Manager Card</p><h2>One view combines evidence, peer context and the required action</h2>
     <div class="two" style="grid-template-columns:1.25fr .75fr;height:650px">
       <div class="shot-frame"><img class="shot" src="presentation-assets/sheet-manager-card.png" alt="Google Sheet Manager Card"></div>
       <div class="walkthrough">
         <div class="step"><b>01</b><div><strong>Select manager and employee</strong><p>The employee list contains only direct reports of the selected manager.</p></div></div>
-        <div class="step"><b>02</b><div><strong>Review result and peer context</strong><p>KPI against target; KPI, delivery and reviewed PR activity against department × seniority peers.</p></div></div>
-        <div class="step"><b>03</b><div><strong>Read the difference status</strong><p>Supported, Justify, Major gap or Insufficient data.</p></div></div>
-        <div class="step"><b>04</b><div><strong>Add manager context</strong><p>A retained difference requires an explanation before the final rating decision.</p></div></div>
+        <div class="step"><b>02</b><div><strong>Compare individual result with peers</strong><p>KPI result, delivery effort and reviewed PR activity are shown against department × seniority peers.</p></div></div>
+        <div class="step"><b>03</b><div><strong>See the rating proposal and gap</strong><p>Manager rating, calculated rating, evidence score and status stay side by side.</p></div></div>
+        <div class="step"><b>04</b><div><strong>Capture manager context</strong><p>Feedback is required when a gap remains before the final decision.</p></div></div>
       </div>
     </div>
-    <div class="page">08 / 12</div>
+    <div class="page">07 / 10</div>
   </section>
 
   <section class="slide">
-    <div class="topline"></div><div class="meta"><b>Brief</b> · company-level evaluation</div>
-    <p class="eyebrow">HR workflow</p><h2>HR Dashboard shows where calibration needs attention</h2>
-    <div class="two" style="grid-template-columns:1.25fr .75fr;height:650px">
+    <div class="topline"></div><div class="meta"><b>Company calibration</b> · HR workflow / evaluation</div>
+    <p class="eyebrow">HR Dashboard</p><h2>The company view shows where manager ratings need a challenge</h2>
+    <div class="two" style="grid-template-columns:1.2fr .8fr;height:620px">
       <div class="shot-frame"><img class="shot" src="presentation-assets/sheet-hr-dashboard.png" alt="Google Sheet HR Dashboard"></div>
-      <div class="walkthrough">
-        <div class="step"><b>01</b><div><strong>Filter one population</strong><p>Manager, seniority and department filters drive the table, chart and detail together.</p></div></div>
-        <div class="step"><b>02</b><div><strong>Compare both rating systems</strong><p>Counts, KPI median and below-target share for manager and calculated ratings.</p></div></div>
-        <div class="step"><b>03</b><div><strong>Inspect the people behind the gap</strong><p>The employee detail keeps the model reviewable instead of reducing it to a company average.</p></div></div>
-        <div class="band" style="margin-top:24px">The dashboard tells HR <b>where to look</b>; it does not make the final rating decision.</div>
+      <div>
+        <div class="walkthrough">
+          <div class="step"><b>01</b><div><strong>Filter one population</strong><p>Manager, seniority and department filters drive table, chart and employee detail together.</p></div></div>
+          <div class="step"><b>02</b><div><strong>Compare both rating systems</strong><p>Counts, median KPI result and below-target share for manager and calculated ratings.</p></div></div>
+          <div class="step"><b>03</b><div><strong>Inspect people behind the gap</strong><p>HR can investigate the exact evidence and manager explanation.</p></div></div>
+        </div>
+        <div class="result-strip" style="grid-template-columns:1fr;margin-top:22px">
+          <div class="result"><span class="label">Defensibility checks</span><div class="big"><span class="bad">27</span> → <span class="good">0</span></div><p>dominance contradictions; high rating + KPI result below 75% falls <b>8 → 0</b>; <b>84%</b> remain within one point in odd/even-week split.</p></div>
+        </div>
       </div>
     </div>
-    <div class="page">09 / 12</div>
+    <div class="footnote">No ground-truth performance label exists. These tests show internal consistency and defensibility, not objective accuracy.</div><div class="page">08 / 10</div>
   </section>
 
   <section class="slide">
-    <div class="topline"></div><div class="meta"><b>Brief</b> · runnable repository / AI use</div>
-    <p class="eyebrow">Runnable artifact</p><h2>The tested Sheet logic is packaged in one local HTML file</h2>
-    <div class="two" style="grid-template-columns:.78fr 1.22fr;height:660px">
+    <div class="topline"></div><div class="meta"><b>Use of AI</b> · transparent model first</div>
+    <p class="eyebrow">Role of AI</p><h2>AI accelerated the work; it does not rate people</h2>
+    <div class="two" style="grid-template-columns:.85fr 1.15fr;height:620px">
       <div>
-        <div class="code">open Groupon_Performance_MVP.html</div>
-        <div class="file-list">
-          <a href="Groupon_Performance_MVP.html">Groupon_Performance_MVP.html</a> — runnable output<br>
-          <a href="Presentation.html">Presentation.html</a> — guided walkthrough<br>
-          <a href="3_MVP.md">1_...md to 5_...md</a> — analysis and handoff
-        </div>
-        <div class="rule"></div>
-        <h3>Use of AI</h3>
         <div class="walkthrough">
-          <div class="step"><b>1</b><div><p>Manual dependency map and Sheet model first.</p></div></div>
-          <div class="step"><b>2</b><div><p>AI-assisted formulas, edge-case checks and wording.</p></div></div>
-          <div class="step"><b>3</b><div><p>HTML implementation and automated reconciliation against agreed outputs.</p></div></div>
+          <div class="step"><b>01</b><div><strong>Manual model first</strong><p>Dependency map, joins, weights and thresholds were designed in the transparent Google Sheet.</p></div></div>
+          <div class="step"><b>02</b><div><strong>AI-assisted implementation</strong><p>Analysis, formulas, edge-case checks, interface copy and HTML implementation.</p></div></div>
+          <div class="step"><b>03</b><div><strong>Deterministic output</strong><p>The final logic is an observable rubric and Settings, not an opaque prompt or runtime AI call.</p></div></div>
         </div>
-        <p class="sub" style="font-size:17px;margin-top:16px">No server, public URL, API key or runtime AI call.</p>
+        <div class="band" style="margin-top:30px">AI helps build and test the system. <b>Humans remain accountable for ratings.</b></div>
       </div>
       <div class="shot-frame"><img class="shot" src="presentation-assets/html-manager.png" alt="Runnable HTML Manager Card"></div>
     </div>
-    <div class="page">10 / 12</div>
+    <div class="page">09 / 10</div>
   </section>
 
   <section class="slide">
-    <div class="topline"></div><div class="meta"><b>Brief</b> · system thinking / 2,000 people</div>
-    <p class="eyebrow">Production operation</p><h2>Run the model before rating conversations, not as permanent employee monitoring</h2>
+    <div class="topline"></div><div class="meta"><b>System thinking</b> · operation / fairness / scale</div>
+    <p class="eyebrow">Production blueprint</p><h2>Run before rating conversations; automate evidence, not the decision</h2>
     <div class="process">
       <div><b>01</b>Data hygiene</div><div><b>02</b>Evidence calculation</div><div><b>03</b>Manager review</div><div><b>04</b>Gap explanation</div><div><b>05</b>Calibration where needed</div><div><b>06</b>Final human rating</div>
     </div>
@@ -326,41 +297,8 @@
       <div><span class="label">Human gates</span><div class="metric-row" style="grid-template-columns:120px 1fr"><strong>1 point</strong><p>manager justification</p></div><div class="metric-row" style="grid-template-columns:120px 1fr"><strong>2+ points</strong><p>calibration discussion</p></div><div class="metric-row" style="grid-template-columns:120px 1fr"><strong>Final</strong><p>manager and HR decision</p></div></div>
       <div><span class="label">Operating measures</span><div class="metric-row" style="grid-template-columns:150px 1fr"><strong>145 / 222</strong><p>complete coverage</p></div><div class="metric-row" style="grid-template-columns:150px 1fr"><strong>48 / 145</strong><p>major gaps</p></div><div class="metric-row" style="grid-template-columns:150px 1fr"><strong>6 groups</strong><p>weak benchmarks</p></div></div>
     </div>
-    <div class="band" style="margin-top:34px">Between rating cycles, run data-hygiene checks only. Recalculation is a batch job; human attention goes to exceptions.</div>
-    <div class="page">11 / 12</div>
-  </section>
-
-  <section class="slide">
-    <div class="topline"></div><div class="meta"><b>Brief</b> · fairness / gaming / handoff</div>
-    <p class="eyebrow">Limits and handoff</p><h2>The model stays useful only if its risks remain visible</h2>
-    <div class="two" style="grid-template-columns:1.15fr .85fr">
-      <div>
-        <table class="risk-table">
-          <thead><tr><th>Risk</th><th>Current mitigation</th></tr></thead>
-          <tbody>
-            <tr><td>Metric gaming</td><td>Effort instead of task count; reviewed PR files only; activity capped at 25%.</td></tr>
-            <tr><td>Score becomes the goal</td><td>Manager context and a human final decision remain mandatory.</td></tr>
-            <tr><td>Period mismatch</td><td>Visible limitation in the prototype; production must align rating and evidence windows.</td></tr>
-            <tr><td>Weak peer groups</td><td>Flag groups below three complete profiles and review the benchmark.</td></tr>
-            <tr><td>Wrong identity</td><td>Use confirmed employee IDs only; unresolved evidence never becomes low performance.</td></tr>
-            <tr><td>Unequal observability</td><td>Role-aware evidence policy; no requirement that every role generates Engineering-like traces.</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <h3>Handoff</h3>
-        <div class="handoff-links">
-          <a href="1_Data%20analysis.md"><span class="check">✓</span>Data analysis</a>
-          <a href="2_Performance%20evaluation.md"><span class="check">✓</span>Rubric and evaluation</a>
-          <a href="3_MVP.md"><span class="check">✓</span>Artifact and submitted-file map</a>
-          <a href="4_Production%20blueprint.md"><span class="check">✓</span>Production blueprint</a>
-          <a href="5_Use%20of%20AI.md"><span class="check">✓</span>Use of AI</a>
-          <a href="Groupon_Performance_MVP.html"><span class="check">✓</span>Runnable HTML artifact</a>
-        </div>
-        <div class="band" style="margin-top:26px">Automate evidence collection and consistency checks — <b>not the performance decision</b>.</div>
-      </div>
-    </div>
-    <div class="footnote">The calculated rating is a diagnostic review proposal, not an automated HR decision.</div><div class="page">12 / 12</div>
+    <div class="band" style="margin-top:34px">Watch coverage, major gaps, weak peer groups and dispute rate. Protect against metric gaming, period mismatch, wrong identity and unequal observability.</div>
+    <div class="footnote">The calculated rating is a diagnostic review proposal, not an automated HR decision.</div><div class="page">10 / 10</div>
   </section>
 
   <div class="progress" id="progress"></div>
