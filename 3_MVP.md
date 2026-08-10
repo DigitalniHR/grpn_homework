@@ -2,7 +2,7 @@
 
 ## Google Sheet
 
-The model was built first in Google Sheets so every join, formula, threshold and weight could be inspected and changed directly.
+The model was built first in Google Sheets for flexibility and observability.
 
 - `E_` sheets contain source data as supplied.
 - `T_` sheets resolve identities, consolidate evidence and calculate the model.
@@ -18,22 +18,26 @@ Link: https://docs.google.com/spreadsheets/d/1s1qiBj6gQVx3ynl_ltT5scdB2qJaQD57KE
 - The dashboard compares the manager rating with the calculated rating within the selected control group.
 
 - To review data quality, use `R_Data Hygiene`. The upper section lists every control as **Problem type**, **What we do**, **How we detect it** and **Count**. These are global, overlapping counts. The filters below apply to the affected-record detail, which includes source, severity, explanation and required action.
-- `T_Data Hygiene Log` contains the auditable case-study output of the deterministic checks. In a production Sheet, a time-driven Google Apps Script would read all `E_` sheets in one batch, rerun the checks, rebuild this log and send missing-data or approved-exception follow-ups to the responsible employee or manager.
+- `T_Data Hygiene Log` contains the auditable case-study output of the deterministic checks.
 
 ## HTML artifact
 
-The HTML artifact mirrors the tested Sheet logic in a simpler interface. Its synthetic data and Data Hygiene results are embedded when the file is built. It cannot fetch current Sheet or production data and cannot rerun the hygiene checks at runtime.
+The HTML artifact mirrors the tested Sheet logic in a simpler interface. Its synthetic data and Data Hygiene results are embedded when the file is built.
 
 - **Manager Card:** manager → direct report selection, individual and peer evidence, calculated rating, difference status, weekly context and manager explanation.
 - **HR Dashboard:** manager, department and seniority filters; manager-vs-model KPI calibration; employee detail.
 - **Data Hygiene:** the same four-column control catalog as the Sheet, followed by filters and the affected-record issue log.
 
-This limitation is a deliberate scope decision. The case study is primarily about the design of the system—evidence rules, data controls, exceptions and human decision gates—rather than proving that I can build a production integration. A single self-contained HTML file is also simple to share, and gave me confidence that a reviewer could open it reliably without installation, credentials, a web server or an API key. A full deployment was unnecessary for this case study.
+The HTML artifact cannot fetch production data or rerun the hygiene checks at runtime.
 
-The production path removes the limitation: the Data Hygiene tests are fully automated by a scheduled Google Apps Script over the `E_` source sheets, while the report remains the readable control surface. The script refreshes `T_Data Hygiene Log`; people still resolve ambiguous identities and approve documented exceptions.
+This limitation is a deliberate scope decision. The case study is primarily about the design of the system—evidence rules, data controls, exceptions and human decision gates—rather than proving that I can build a production integration.
+
+A single self-contained HTML file is also simple to share, and gave me confidence that a reviewer could open it reliably without installation, credentials, a web server or an API key. A full deployment was unnecessary for this case study.
+
+In production, the Data Hygiene tests would be fully automated by a scheduled Google Apps Script over all `E_` source sheets. The script would refresh `T_Data Hygiene Log`; people would still resolve ambiguous identities and approve documented exceptions.
 
 ## Run
 
 Open `Groupon_Performance_MVP.html`, or simply double-click the file. Use the tabs in the top menu bar to switch between the Manager Card, HR Dashboard and Data Hygiene.
 
-`Groupon_Performance_MVP.html` is the standalone runnable file to share with reviewers. It embeds the synthetic case-study data, while the linked Google Sheet exposes the joins, formulas and editable policy assumptions for direct inspection.
+`Groupon_Performance_MVP.html` is the standalone file to share with reviewers. The linked Google Sheet exposes the joins, formulas and editable policy assumptions for direct inspection.

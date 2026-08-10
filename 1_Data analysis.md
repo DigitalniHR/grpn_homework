@@ -65,4 +65,6 @@ Across the 167 employees whose identity and KPI outcome can be resolved safely, 
 - 10 people with a KPI result at or below 75% have rating 4–5;
 - 7 people at or above 105% have rating 1–2.
 
-This does not prove KPI is the complete definition of performance. It establishes a measurable internal inconsistency that the proposed model must improve. Because KPI is also the largest input to the proposed score, KPI alignment is an internal-consistency test, not independent proof that the model is fair or accurate.
+This establishes a measurable internal inconsistency that the proposed model must improve. Because KPI is also the largest input to the proposed score, KPI alignment is an internal-consistency test, not independent proof that the model is fair or accurate.
+
+For more detail, see the `R_HR Dashboard` tab in the Google Sheet prototype or the HR Dashboard in the HTML artifact.

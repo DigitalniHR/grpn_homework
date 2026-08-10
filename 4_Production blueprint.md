@@ -1,6 +1,8 @@
 # Production blueprint
 
-## Access
+A production system should contain the following:
+
+## Access management
 
 - Employees see their own evidence; peer data is anonymous.
 - Managers see named data for their reporting line.
@@ -13,38 +15,12 @@ The level of transparency depends on the company culture and its approach to per
 - Connect the system to data sources such as GitHub, Asana, Jira, KPI tracking and 5/15 tracking.
 - Run regular routines to fetch the data and store it in a data warehouse the system reads from.
 - Manager feedback is stored in the system as well.
-- With every data fetch, run deterministic data-hygiene checks and write every issue to one auditable log.
-- We can consider using AI to read text comments and assess their quality, specificity and measurability.
-
-### Automated Data Hygiene in Google Sheets
-
-For the Sheet-based production stage, a time-driven Google Apps Script runs after source refreshes. It reads every `E_` sheet in batches, applies one versioned deterministic rule library, and rebuilds `T_Data Hygiene Log`. `R_Data Hygiene` only presents that output; it does not duplicate the test logic.
-
-```text
-E_Employees + E_Identity Map + E_KPI + E_Tasks + E_PR + E_Weekly Reports
-                              │
-                              ▼
-             Google Apps Script · scheduled trigger
-                  batch read → deterministic tests
-                              │
-                              ▼
-              T_Data Hygiene Log · auditable output
-                    │                         │
-                    ▼                         ▼
-          R_Data Hygiene report      reminders to the owner
-                    │
-                    ▼
-     quality gate: successful, current run required before scoring refresh
-                    │
-                    ▼
-     human gate: manager / People Ops resolves identity or approves exception
-```
-
-The automated checks cover identity uniqueness and mapping, required evidence, weak control groups, PR review evidence, repeated 5/15 text, non-informative bet status and period alignment. A failed or stale script run stops the scoring refresh and alerts the process owner. The tests and log refresh are fully automated; resolving ambiguous identities and approving sickness, leave or role exceptions remain human decisions.
+- With every data fetch, run deterministic data-hygiene checks and write every issue to one auditable log (see the `Data Hygiene` tab).
+- We can consider using AI to categorize text comments and assess their quality, specificity and measurability.
 
 ## Weekly operation
 
-Once a week, the system runs two small routines:
+Once a week, the system runs two routines:
 
 1. **Data hygiene:** the scheduled Apps Script checks source freshness, identity resolution, required evidence, missing 5/15 updates, unreviewed merged PRs, repeated templates, period mismatches and weak control groups. The issue log records the affected person or system, source, severity, explanation and required action. Missing-data reminders go to the responsible employee or manager.
 2. **Manager context summary:** send each manager a short factual view of their own reporting line: 5/15 updates, delivery tasks and reviewed PR activity. This is context for follow-up, not a live performance score and not a new reporting obligation.
@@ -77,8 +53,8 @@ A Slack bot could remind people to submit their data and let them submit it dire
 ## Human decisions
 
 - The manager submits the source rating.
-- A one-point difference requires an explanation.
-- A two-point or larger difference requires calibration.
+- A one-point difference requires a manager explanation.
+- A two-point or larger difference requires a calibration discussion.
 - HR owns role-specific weights, thresholds and policy changes.
 
 - Plan: deploy an AI copilot that reads all metrics, context and signals and helps the manager (ask the right questions, challenge the decision, prepare for 1-1s).

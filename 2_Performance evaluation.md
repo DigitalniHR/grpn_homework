@@ -92,6 +92,8 @@ All results use the 145 people with complete evidence.
 
 The new method is therefore more internally consistent and easier to defend. The resulting review queue is 48 `Supported`, 49 `Justify`, 48 `Major gap` and 77 `Insufficient data`. It is not proven objectively accurate: KPI is an input to the model, activity covers a shorter period than KPI, and peer groups may still combine different roles.
 
+The result tables and charts can be explored in the `R_HR Dashboard` tab of the Google Sheet and in the HR Dashboard of the HTML artifact.
+
 ## Feedback loop
 
 Every retained `Justify` or `Major gap` requires a short manager explanation. HR reviews recurring explanations after each company-defined rating cycle. A repeated reason indicates either missing evidence or a policy that should be reconsidered for that role.
@@ -99,7 +101,7 @@ Every retained `Justify` or `Major gap` requires a short manager explanation. HR
 Two independent outcome measures should be added in production:
 
 1. **Manager adjustment rate:** after seeing the evidence recommendation, what proportion of managers change their proposed rating, in which direction, and why? This measures whether the system changes decisions rather than merely reproducing its own inputs.
-2. **Employee fairness feedback:** after the cycle, ask employees whether the evidence was complete, understandable and fairly reflected in the conversation. Track the result over time and by role, while protecting anonymity.
+2. **Employee fairness feedback:** after the cycle, run a pulse survey asking employees whether the evidence was complete, understandable and fairly reflected in the conversation. Track the result over time and by role and manager, while protecting anonymity.
 
 These measures should sit alongside calibrated overrides and appeals. Together they test usefulness and perceived fairness without asking the score to validate itself.
 
