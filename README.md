@@ -12,7 +12,12 @@ A rule-based way to prepare performance ratings from evidence that already exist
 
 ## Try it
 
-Double-click [`Groupon_Performance_MVP.html`](Groupon_Performance_MVP.html). It runs locally, with no installation, web server or API key. Use the tabs in the top menu bar to switch between the Manager Card, HR Dashboard and Data Hygiene.
+GitHub previews the file; it does not run the interactive app. To use it:
+
+1. Open [`Groupon_Performance_MVP.html`](Groupon_Performance_MVP.html) and choose **Download raw**, or download the repository as a ZIP.
+2. Keep the `.html` extension and open the downloaded file locally, for example by double-clicking it.
+
+The file is self-contained: it needs no installation, web server, API key or internet connection after download. It opens in a current desktop browser such as Chrome, Safari or Firefox. Use the tabs in the top menu bar to switch between the Manager Card, HR Dashboard and Data Hygiene.
 
 The model itself is in the [Google Sheet prototype](https://docs.google.com/spreadsheets/d/1s1qiBj6gQVx3ynl_ltT5scdB2qJaQD57KEjnxf8MvA4/edit?usp=sharing), where every join, formula and weight can be inspected and changed. The artifact does not read it at runtime; [Working MVP](3_MVP.md) explains how to navigate it.
 
