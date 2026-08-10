@@ -14,7 +14,7 @@ A rule-based way to prepare performance ratings from evidence that already exist
 
 GitHub previews the file; it does not run the interactive app. To use it:
 
-1. Open [`Groupon_Performance_MVP.html`](Groupon_Performance_MVP.html) and choose **Download raw**, or download the repository as a ZIP.
+1. Open [`Groupon_Performance_POC.html`](Groupon_Performance_POC.html) and choose **Download raw**, or download the repository as a ZIP.
 2. Keep the `.html` extension and open the downloaded file locally, for example by double-clicking it.
 
 The file is self-contained: it needs no installation, web server, API key or internet connection after download. It opens in a current desktop browser such as Chrome, Safari or Firefox. Use the tabs in the top menu bar to switch between the Manager Card, HR Dashboard and Data Hygiene.

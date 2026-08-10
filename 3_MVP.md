@@ -41,6 +41,6 @@ In production, the Data Hygiene tests would be fully automated by a scheduled Go
 
 ## Run
 
-GitHub previews `Groupon_Performance_MVP.html`; it does not run the interactive application. Download the file using **Download raw** (or download the repository as a ZIP), keep its `.html` extension, then open it locally by double-clicking it. Use the tabs in the top menu bar to switch between the Manager Card, HR Dashboard and Data Hygiene.
+GitHub previews `Groupon_Performance_POC.html`; it does not run the interactive application. Download the file using **Download raw** (or download the repository as a ZIP), keep its `.html` extension, then open it locally by double-clicking it. Use the tabs in the top menu bar to switch between the Manager Card, HR Dashboard and Data Hygiene.
 
-`Groupon_Performance_MVP.html` is a fully self-contained standalone file: it has no external scripts, fonts, images, API calls or Google Sheet dependency, and needs no installation, web server or internet connection after download. It opens in a current desktop browser such as Chrome, Safari or Firefox. The linked Google Sheet exposes the joins, formulas and editable policy assumptions for direct inspection.
+`Groupon_Performance_POC.html` is a fully self-contained standalone file: it has no external scripts, fonts, images, API calls or Google Sheet dependency, and needs no installation, web server or internet connection after download. It opens in a current desktop browser such as Chrome, Safari or Firefox. The linked Google Sheet exposes the joins, formulas and editable policy assumptions for direct inspection.
