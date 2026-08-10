@@ -6,34 +6,34 @@ The model was built first in Google Sheets so every join, formula, threshold and
 
 - `E_` sheets contain source data as supplied.
 - `T_` sheets resolve identities, consolidate evidence and calculate the model.
-- `R_` sheets contain the Manager Card and HR Dashboard.
+- `R_` sheets contain the Manager Card, HR Dashboard and Data Hygiene report.
 - `Settings` is the editable source for weights and rating bands.
+
+Link: https://docs.google.com/spreadsheets/d/1s1qiBj6gQVx3ynl_ltT5scdB2qJaQD57KEjnxf8MvA4/edit?usp=sharing
+
+- To test the model, use `R_Manager Card` and select the manager and the direct report in cells `B3` and `B4`.
+- You can see the manager rating, the rubric calculation, the proposed calculated rating and a chart of team performance.
+
+- To see the company-wide result, use `R_HR Dashboard`. Select the area to measure: Manager (`B17`), Seniority (`D17`) or Department (`F17`).
+- The dashboard compares the manager rating with the calculated rating within the selected control group.
+
+- To review data quality, use `R_Data Hygiene`. The upper section lists every control as **Problem type**, **What we do**, **How we detect it** and **Count**. These are global, overlapping counts. The filters below apply to the affected-record detail, which includes source, severity, explanation and required action.
+- `T_Data Hygiene Log` contains the auditable case-study output of the deterministic checks. In a production Sheet, a time-driven Google Apps Script would read all `E_` sheets in one batch, rerun the checks, rebuild this log and send missing-data or approved-exception follow-ups to the responsible employee or manager.
 
 ## HTML artifact
 
-The HTML artifact mirrors the tested Sheet logic in a simpler interface. It does not read the Sheet at runtime.
+The HTML artifact mirrors the tested Sheet logic in a simpler interface. Its synthetic data and Data Hygiene results are embedded when the file is built. It cannot fetch current Sheet or production data and cannot rerun the hygiene checks at runtime.
 
 - **Manager Card:** manager → direct report selection, individual and peer evidence, calculated rating, difference status, weekly context and manager explanation.
 - **HR Dashboard:** manager, department and seniority filters; manager-vs-model KPI calibration; employee detail.
+- **Data Hygiene:** the same four-column control catalog as the Sheet, followed by filters and the affected-record issue log.
 
-The artifact is a single local file with synthetic data embedded inside it. It needs no web server, package installation, public URL or API key.
+This limitation is a deliberate scope decision. The case study is primarily about the design of the system—evidence rules, data controls, exceptions and human decision gates—rather than proving that I can build a production integration. A single self-contained HTML file is also simple to share, and gave me confidence that a reviewer could open it reliably without installation, credentials, a web server or an API key. A full deployment was unnecessary for this case study.
+
+The production path removes the limitation: the Data Hygiene tests are fully automated by a scheduled Google Apps Script over the `E_` source sheets, while the report remains the readable control surface. The script refreshes `T_Data Hygiene Log`; people still resolve ambiguous identities and approve documented exceptions.
 
 ## Run
 
-```bash
-open Groupon_Performance_MVP.html
-```
+Open `Groupon_Performance_MVP.html`, or simply double-click the file. Use the tabs in the top menu bar to switch between the Manager Card, HR Dashboard and Data Hygiene.
 
-Alternatively, double-click `Groupon_Performance_MVP.html`. It runs locally without installation, a web server or an API key.
-
-## Submitted files
-
-```text
-README.md                         entry point
-Presentation.html                 12-slide walkthrough
-Groupon_Performance_MVP.html      runnable artifact
-presentation-assets/              presentation screenshots
-1_...md to 5_...md                analysis and handoff notes
-```
-
-The repository intentionally contains the finished case-study outputs only. Supplied source data and implementation/build files are not republished.
+`Groupon_Performance_MVP.html` is the standalone runnable file to share with reviewers. It embeds the synthetic case-study data, while the linked Google Sheet exposes the joins, formulas and editable policy assumptions for direct inspection.

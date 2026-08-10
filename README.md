@@ -1,22 +1,19 @@
-# Groupon Performance — case study
+# Performance evidence review — handoff
 
-Final case-study outputs for an evidence-grounded performance review prototype.
+A rule-based way to prepare performance ratings from evidence that already exists in operational systems. The calculated rating is a review prompt for the manager, not an automated HR decision.
 
-## Start here
+## Read in this order
 
-1. [Open the 12-slide presentation](Presentation.html).
-2. [Open the interactive Manager Card and HR Dashboard](Groupon_Performance_MVP.html).
+1. [Data analysis](1_Data%20analysis.md) — what the supplied data contains, what is usable as evidence and what is not.
+2. [Performance evaluation](2_Performance%20evaluation.md) — rubric, weights, rating calculation, defensibility checks and results.
+3. [Working MVP](3_MVP.md) — the Google Sheet prototype and the runnable artifact.
+4. [Production blueprint](4_Production%20blueprint.md) — how this would run for the whole company.
+5. [Use of AI](5_Use%20of%20AI.md) — what was mine and what was AI-assisted.
 
-Both HTML files run locally without installation, a server or an API key. Download the repository and open them in a browser.
+## Try it
 
-## Documentation
+Double-click [`Groupon_Performance_MVP.html`](Groupon_Performance_MVP.html). It runs locally, with no installation, web server or API key. Use the tabs in the top menu bar to switch between the Manager Card, HR Dashboard and Data Hygiene.
 
-- [1 — Data analysis](1_Data%20analysis.md)
-- [2 — Performance evaluation](2_Performance%20evaluation.md)
-- [3 — Working MVP](3_MVP.md)
-- [4 — Production blueprint](4_Production%20blueprint.md)
-- [5 — Use of AI](5_Use%20of%20AI.md)
+The model itself is in the [Google Sheet prototype](https://docs.google.com/spreadsheets/d/1s1qiBj6gQVx3ynl_ltT5scdB2qJaQD57KEjnxf8MvA4/edit?usp=sharing), where every join, formula and weight can be inspected and changed. The artifact does not read it at runtime; [Working MVP](3_MVP.md) explains how to navigate it.
 
-The calculated rating is a diagnostic review proposal. It does not replace the manager’s judgment or the final HR decision.
-
-This submission intentionally contains finished outputs only. Supplied source data and implementation/build files are not republished.
+In both prototypes, Data Hygiene first explains each control as **Problem type · What we do · How we detect it · Count**, then provides filters and the affected-record detail. The counts are overlapping signals, not a population total. The submitted results are a case-study snapshot; the production design uses an automated Google Apps Script run over every `E_` source sheet to refresh the issue log before scoring.
