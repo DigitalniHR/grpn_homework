@@ -10,6 +10,8 @@ A production system should contain the following:
 
 The level of transparency depends on the company culture and its approach to performance management.
 
+Production code and operational input data must be separated. Source data stays in controlled systems or the data warehouse; the application displays only the evidence permitted by these access-management rules. A shareable HTML artifact with embedded data is suitable for a POC, never for production employee data.
+
 ## Data
 
 - Connect the system to data sources such as GitHub, Asana, Jira, KPI tracking and 5/15 tracking.

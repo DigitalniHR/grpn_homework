@@ -31,6 +31,8 @@ The HTML artifact mirrors the tested Sheet logic in a simpler interface. Its syn
 
 The HTML artifact cannot fetch production data or rerun the hygiene checks at runtime.
 
+Because it embeds case-study evidence, the downloadable HTML artifact is a POC only and must never be used as a production container for employee data.
+
 This limitation is a deliberate scope decision. The case study is primarily about the design of the system—evidence rules, data controls, exceptions and human decision gates—rather than proving that I can build a production integration.
 
 A single self-contained HTML file is also simple to share, and gave me confidence that a reviewer could open it reliably without installation, credentials, a web server or an API key. A full deployment was unnecessary for this case study.
