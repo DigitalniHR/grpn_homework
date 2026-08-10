@@ -66,7 +66,7 @@ A Slack bot could remind people to submit their data and let them submit it dire
 - **Metric gaming:** effort inflation or PR splitting. Mitigation: use effort rather than task count, reviewed files only, and keep activity at 25%.
 - **Score becomes the goal:** people optimize visible traces instead of outcomes. Mitigation: retain manager context and a human final decision.
 - **Period mismatch:** KPI and activity windows differ. Production must align and display the evaluation period.
-- **Weak comparability:** department × seniority can still mix roles. Production needs role-level policy review and minimum cohort rules.
+- **Weak comparability:** department × seniority can still mix roles. A group below three complete profiles is flagged as a weak benchmark. The POC does not merge groups automatically; People/HR must decide whether adjacent seniority levels may be combined only after confirming comparable roles and KPIs. Otherwise, the group-relative component remains diagnostic only.
 - **Missing or wrong identity:** work may be assigned to the wrong person or disappear. Unresolved joins remain visible and never become a low score.
 - **Unequal observability:** Engineering produces more system traces than some other functions. Evidence requirements and access rules must be role-aware.
 
@@ -74,6 +74,6 @@ The operating principle is to automate evidence collection, not the performance 
 
 ## Long-term product direction: the “Garmin” idea
 
-This is a future product hypothesis, not part of the rating rubric or the MVP. Like a sports tracker, the system could collect useful work signals automatically and give employees a vivid private view of their own effectiveness.
+This is a future product hypothesis, not part of the rating rubric or the POC. Like a sports tracker, the system could collect useful work signals automatically and give employees a vivid private view of their own effectiveness.
 
 Possible future signals include autonomous AI runs, context switching, blocks of focused work and the quality of agent prompting. Their purpose would be employee development, not rating input. Any experiment would need clear employee benefit, opt-in or equivalent privacy governance, and separate validation before it could influence performance decisions.

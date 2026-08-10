@@ -1,4 +1,4 @@
-# Working MVP
+# Working Proof of Concept (POC)
 
 ## Google Sheet
 
@@ -19,6 +19,7 @@ Link: https://docs.google.com/spreadsheets/d/1s1qiBj6gQVx3ynl_ltT5scdB2qJaQD57KE
 
 - To review data quality, use `R_Data Hygiene`. The upper section lists every control as **Problem type**, **What we do**, **How we detect it** and **Count**. These are global, overlapping counts. The filters below apply to the affected-record detail, which includes source, severity, explanation and required action.
 - `T_Data Hygiene Log` contains the auditable case-study output of the deterministic checks.
+- A department × seniority group with fewer than three complete profiles is shown as a weak benchmark. The POC does not merge groups automatically; People/HR must decide whether adjacent seniority levels can be combined under an approved comparability policy.
 
 ## HTML artifact
 

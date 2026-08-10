@@ -48,7 +48,7 @@ All weights and thresholds are editable in the Google Sheet `Settings` tab. The 
 | 105–125% | 4 | Above |
 | 125% and above | 5 | Highest |
 
-Missing required evidence is never converted to zero performance. It produces no calculated rating and the status `Insufficient data`. A peer group with fewer than three complete profiles is flagged as weak because its benchmark is unstable; the current MVP leaves the diagnostic rating visible for review.
+Missing required evidence is never converted to zero performance. It produces no calculated rating and the status `Insufficient data`. A peer group with fewer than three complete profiles is flagged as weak because its benchmark is unstable; the current POC leaves the diagnostic rating visible for review. It does not merge peer groups automatically. In production, People/HR must decide whether adjacent seniority levels can be merged only after confirming that roles and KPIs remain comparable; otherwise the group-relative component remains diagnostic only.
 
 Only complete profiles contribute to a control-group average. This prevents missing records from depressing the benchmark artificially. Production policy must distinguish an unresolved data gap from an approved exception such as sickness, leave or a source that is not applicable to the role. An exception needs a reason, owner and expiry date; it does not silently become a zero.
 

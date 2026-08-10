@@ -37,7 +37,7 @@ The 15 checks cover four areas:
 
 - **Identity:** duplicate names/emails with different Employee IDs, employees absent from the identity map, ambiguous logins, unmapped raw logins and secondary `_x` accounts. Employee ID remains the source of truth.
 - **Required evidence:** missing KPI, delivery-task or reviewed-PR evidence and missing 5/15 updates. Required gaps produce `Insufficient data`; 5/15 remains a weekly follow-up rather than a score input.
-- **Comparability:** department × seniority groups below the minimum of three complete profiles are flagged for HR review.
+- **Comparability:** department × seniority groups below the minimum of three complete profiles are flagged for HR review. Six of the 31 groups in this case-study dataset meet that condition. The POC does not merge groups automatically: in production, People/HR must decide whether adjacent seniority levels can be combined only after verifying comparable roles and KPIs; otherwise the group-relative benchmark remains diagnostic only.
 - **Source and policy quality:** unreviewed merged PRs, repeated 5/15 templates, non-informative bet statuses, mismatched evidence windows and manager ratings without a defined period.
 
 For the case study, these checks were run against the supplied files and their results were materialized in the report. In a Sheet-based production stage, a scheduled Google Apps Script would read all `E_` source sheets, run the same rule set consistently and rebuild `T_Data Hygiene Log` before any rating refresh.
